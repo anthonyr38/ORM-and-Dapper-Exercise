@@ -31,25 +31,47 @@ namespace ORM_Dapper
             }
             */
 
+
+            
             var repo = new DapperProductRepository(conn);
 
-            Console.WriteLine("What is the name of your new product?");
-            var prodName = Console.ReadLine();
+            //Console.WriteLine("What is the name of your new product?");
+            //var prodName = Console.ReadLine();
 
-            Console.WriteLine("What is the price of your new product?");
-            var prodPrice = double.Parse(Console.ReadLine());
+            //Console.WriteLine("What is the price of your new product?");
+            //var prodPrice = double.Parse(Console.ReadLine());
 
-            Console.WriteLine("What is the category ID?");
-            var prodCat = int.Parse(Console.ReadLine());
+            //Console.WriteLine("What is the category ID?");
+            //var prodCat = int.Parse(Console.ReadLine());
 
-            repo.CreateProduct(prodName, prodPrice, prodCat);
+            //repo.CreateProduct(prodName, prodPrice, prodCat);
 
             var prodList = repo.GetAllProducts();
+
+            var productUpdate = repo.GetProduct(900);
+
+            productUpdate.Name = "Been Updated";
+            productUpdate.Price = 16.99;
+            productUpdate.CategoryID = 1;
+            productUpdate.OnSale = false;
+            productUpdate.StockLevel = 500;
+
+
+            repo.UpdateProduct(productUpdate);
+
+
+            repo.DeleteProduct(900);
+
+
 
             foreach (var prod in prodList) 
             {
                 Console.WriteLine($"{prod.ProductID} - {prod.Name}");
+                Console.WriteLine();
             }
+            
+
+
 
         }
     }
